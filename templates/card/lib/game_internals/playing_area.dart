@@ -2,9 +2,14 @@ import 'dart:async';
 
 import 'package:async/async.dart';
 
+import 'card_suit.dart';
 import 'playing_card.dart';
 
 class PlayingArea {
+
+  bool isHighlighted = false;
+  bool isRecyclable = false;
+
   /// The maximum number of cards in this playing area.
   static const int maxCards = 6;
 
@@ -17,7 +22,9 @@ class PlayingArea {
   final StreamController<void> _remoteChanges =
       StreamController<void>.broadcast();
 
-  PlayingArea();
+  TrashType trashType;
+
+  PlayingArea({required this.trashType});
 
   /// A [Stream] that fires an event every time any change to this area is made.
   Stream<void> get allChanges =>

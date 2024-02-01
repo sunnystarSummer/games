@@ -5,18 +5,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-
 import '../game_internals/score.dart';
+import '../level_selection/levels.dart';
 import '../style/my_button.dart';
 import '../style/palette.dart';
 import '../style/responsive_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WinGameScreen extends StatelessWidget {
   final Score score;
+  final int highestLevelReached;
 
   const WinGameScreen({
     super.key,
     required this.score,
+    required this.highestLevelReached,
   });
 
   @override
@@ -28,32 +31,51 @@ class WinGameScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: palette.backgroundPlaySession,
       body: ResponsiveScreen(
-        squarishMainArea: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            gap,
-            const Center(
-              child: Text(
-                'You won!',
-                style: TextStyle(fontFamily: 'Permanent Marker', fontSize: 50),
+        squarishMainArea: Stack(
+          children: [
+            Center(
+              child: Opacity(
+                opacity: 0.4,
+                child: Image(
+                  image: AssetImage('assets/images/background/earth_good.png'),
+                ),
               ),
             ),
-            gap,
-            Center(
-              child: Text(
-                'Score: ${score.score}\n'
-                'Time: ${score.formattedTime}',
-                style: const TextStyle(
-                    fontFamily: 'Permanent Marker', fontSize: 20),
-              ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                gap,
+                Center(
+                  child: Text(
+                    AppLocalizations.of(context)!.youWon,
+                    style:
+                        TextStyle(fontFamily: 'Permanent Marker', fontSize: 50),
+                  ),
+                ),
+                gap,
+                Center(
+                  child: Text(
+                    '${AppLocalizations.of(context)!.score}: ${score.score}\n'
+                    '${AppLocalizations.of(context)!.time}: ${score.formattedTime}',
+                    style:
+                        TextStyle(fontFamily: 'Permanent Marker', fontSize: 20),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
         rectangularMenuArea: MyButton(
           onPressed: () {
-            GoRouter.of(context).go('/');
+            //GoRouter.of(context).go('/play');
+            final nextLevel = highestLevelReached + 1;
+            if (nextLevel < (gameLevels.length + 1)) {
+              GoRouter.of(context).go('/play/session/$nextLevel');
+            } else {
+              GoRouter.of(context).go('/play');
+            }
           },
-          child: const Text('Continue'),
+          child: Text(AppLocalizations.of(context)!.continueText),
         ),
       ),
     );

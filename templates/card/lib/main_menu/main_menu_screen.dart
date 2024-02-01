@@ -12,6 +12,7 @@ import '../settings/settings.dart';
 import '../style/my_button.dart';
 import '../style/palette.dart';
 import '../style/responsive_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainMenuScreen extends StatelessWidget {
   const MainMenuScreen({super.key});
@@ -25,19 +26,31 @@ class MainMenuScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: palette.backgroundMain,
       body: ResponsiveScreen(
-        squarishMainArea: Center(
-          child: Transform.rotate(
-            angle: -0.1,
-            child: const Text(
-              'Drag&Drop Cards!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Permanent Marker',
-                fontSize: 55,
-                height: 1,
+        squarishMainArea: Stack(
+          children: [
+            Center(
+              child: Opacity(
+                opacity: 0.4,
+                child: Image(
+                  image: AssetImage('assets/images/card_suit/earth_nature_futaba.png'),
+                ),
               ),
             ),
-          ),
+            Center(
+              child: Transform.rotate(
+                angle: -0.1,
+                child: Text(
+                  AppLocalizations.of(context)!.gameName,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Permanent Marker',
+                    fontSize: 55,
+                    height: 1,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         rectangularMenuArea: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -47,12 +60,12 @@ class MainMenuScreen extends StatelessWidget {
                 audioController.playSfx(SfxType.buttonTap);
                 GoRouter.of(context).go('/play');
               },
-              child: const Text('Play'),
+              child: Text(AppLocalizations.of(context)!.play),
             ),
             _gap,
             MyButton(
               onPressed: () => GoRouter.of(context).push('/settings'),
-              child: const Text('Settings'),
+              child: Text(AppLocalizations.of(context)!.settings),
             ),
             _gap,
             Padding(
@@ -68,7 +81,7 @@ class MainMenuScreen extends StatelessWidget {
               ),
             ),
             _gap,
-            const Text('Music by Mr Smith'),
+            Text(AppLocalizations.of(context)!.musicByMrSmith),
             _gap,
           ],
         ),

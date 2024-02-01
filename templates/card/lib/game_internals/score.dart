@@ -14,7 +14,7 @@ class Score {
     // The higher the difficulty, the higher the score.
     var score = difficulty;
     // The lower the time to beat the level, the higher the score.
-    score *= 10000 ~/ (duration.inSeconds.abs() + 1);
+    score *= 10000 * 1000 ~/ (duration.inSeconds.abs() + 1);
     return Score._(score, duration, level);
   }
 

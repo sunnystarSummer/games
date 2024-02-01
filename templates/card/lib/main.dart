@@ -7,6 +7,7 @@ import 'dart:developer' as dev;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,7 @@ import 'player_progress/player_progress.dart';
 import 'router.dart';
 import 'settings/settings.dart';
 import 'style/palette.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   // Basic logging setup.
@@ -74,31 +76,46 @@ class MyApp extends StatelessWidget {
         child: Builder(builder: (context) {
           final palette = context.watch<Palette>();
 
-          return MaterialApp.router(
-            title: 'My Flutter Game',
-            theme: ThemeData.from(
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: palette.darkPen,
-                background: palette.backgroundMain,
-              ),
-              textTheme: TextTheme(
-                bodyMedium: TextStyle(color: palette.ink),
-              ),
-              useMaterial3: true,
-            ).copyWith(
-              // Make buttons more fun.
-              filledButtonTheme: FilledButtonThemeData(
-                style: FilledButton.styleFrom(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+          return ScreenUtilInit(
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            // Use builder only if you need to use library outside ScreenUtilInit context
+            builder: (_, child) {
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                title: 'recycle_challenge',
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                // supportedLocales: AppLocalizations.supportedLocales,
+                supportedLocales: const [
+                  Locale('en'), // English
+                  //Locale('vi'),
+                ],
+                theme: ThemeData.from(
+                  colorScheme: ColorScheme.fromSeed(
+                    seedColor: palette.darkPen,
+                    background: palette.backgroundMain,
+                  ),
+                  textTheme: TextTheme(
+                    bodyMedium: TextStyle(color: palette.ink),
+                  ),
+                  useMaterial3: true,
+                ).copyWith(
+                  // Make buttons more fun.
+                  filledButtonTheme: FilledButtonThemeData(
+                    style: FilledButton.styleFrom(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            routeInformationProvider: router.routeInformationProvider,
-            routeInformationParser: router.routeInformationParser,
-            routerDelegate: router.routerDelegate,
+                routeInformationProvider: router.routeInformationProvider,
+                routeInformationParser: router.routeInformationParser,
+                routerDelegate: router.routerDelegate,
+              );
+            },
           );
         }),
       ),

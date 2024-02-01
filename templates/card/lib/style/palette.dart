@@ -35,4 +35,7 @@ class Palette {
   Color get background4 => const Color(0xffffffd1);
   Color get backgroundSettings => const Color(0xffbfc8e3);
   Color get trueWhite => const Color(0xffffffff);
+
+  Color get recyclable => const Color(0xff8ec21f);
+  Color get notRecyclable => const Color(0xffe70021);
 }

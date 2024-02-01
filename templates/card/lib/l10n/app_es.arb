@@ -1,0 +1,19 @@
+{
+  "gameName": "Desafío de Reciclaje",
+  "play": "Jugar",
+  "settings": "Ajustes",
+  "name": "nombre",
+  "changeName": "nombre",
+  "close": "Cerrar",
+  "soundFX": "Efectos de Sonido",
+  "music": "Música",
+  "resetProgress": "Restablecer progreso",
+  "hasBeenReset": "El progreso del jugador ha sido restablecido.",
+  "back": "Volver",
+  "gameHint": "Voltea las cartas para encontrar patrones coincidentes,\n arrastra los pares exitosos al área de reciclaje.",
+  "musicByMrSmith": "Música por Sr. Smith",
+  "youWon": "¡Has ganado!",
+  "score": "Puntuación",
+  "time": "Tiempo",
+  "continueText": "Continuar"
+}

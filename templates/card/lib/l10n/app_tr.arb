@@ -1,0 +1,19 @@
+{
+  "gameName": "Geridönüş Mücadelesi",
+  "play": "Oyna",
+  "settings": "Ayarlar",
+  "name": "ad",
+  "changeName": "adı değiştir",
+  "close": "Kapat",
+  "soundFX": "Ses Efektleri",
+  "music": "müzik",
+  "resetProgress": "İlerlemeyi Sıfırla",
+  "hasBeenReset": "Oyuncu ilerlemesi sıfırlandı.",
+  "back": "Geri",
+  "gameHint": "Eşleşen desenleri bulmak için kartları çevirin, \nbaşarılı çiftleri geri dönüş alanına sürükleyin.",
+  "musicByMrSmith": "Müzik: Mr Smith",
+  "youWon": "Kazandınız!",
+  "score": "Puan",
+  "time": "Zaman",
+  "continueText": "Devam"
+}

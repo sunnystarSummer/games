@@ -1,0 +1,19 @@
+{
+  "gameName": "リサイクルチャレンジ",
+  "play": "プレイ",
+  "settings": "設定",
+  "name": "名前",
+  "changeName": "名前を変更",
+  "close": "閉じる",
+  "soundFX": "効果音",
+  "music": "音楽",
+  "resetProgress": "進行状況をリセット",
+  "hasBeenReset": "プレイヤーの進行状況がリセットされました。",
+  "back": "戻る",
+  "gameHint": "カードを裏返して、一致するパターンを見つけ、\n成功したペアをリサイクルエリアにドラッグしてください。",
+  "musicByMrSmith": "音楽提供：Mr. Smith",
+  "youWon": "勝利しました！",
+  "score": "スコア",
+  "time": "時間",
+  "continueText": "続行"
+}

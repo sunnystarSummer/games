@@ -1,0 +1,19 @@
+{
+  "gameName": "Výzva ke třídění odpadu",
+  "play": "Hrát",
+  "settings": "Nastavení",
+  "name": "jméno",
+  "changeName": "Změnit jméno",
+  "close": "Zavřít",
+  "soundFX": "Zvukové efekty",
+  "music": "Hudba",
+  "resetProgress": "Obnovit postup",
+  "hasBeenReset": "Postup hráče byl obnoven.",
+  "back": "Zpět",
+  "gameHint": "Otočte karty, abyste našli odpovídající vzory, \npřetáhněte úspěšné dvojice do oblasti třídění odpadu.",
+  "musicByMrSmith": "Hudba od pana Smitha",
+  "youWon": "Vyhráli jste!",
+  "score": "Skóre",
+  "time": "Čas",
+  "continueText": "Pokračovat"
+}
