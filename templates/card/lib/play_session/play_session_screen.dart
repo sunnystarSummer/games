@@ -267,7 +267,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
   }
 
   @override
-  Future<void> afterFirstLayout(BuildContext context) async {
+  void afterFirstLayout(BuildContext context) async {
     _boardState.openAllCards();
 
     Future.delayed(Duration(seconds: 2)).then((value) {
