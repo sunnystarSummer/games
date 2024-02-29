@@ -267,7 +267,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
   }
 
   @override
-  void afterFirstLayout(BuildContext context) async {
+  void afterFirstLayout(BuildContext context) {
     _boardState.openAllCards();
 
     Future.delayed(Duration(seconds: 2)).then((value) {
@@ -289,7 +289,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
           setState(() {
             _countdownTime = -1;
 
-            if(!player.isGood){
+            if (!player.isGood) {
               _boardState.shuffle();
               player.isGood = true;
             }
