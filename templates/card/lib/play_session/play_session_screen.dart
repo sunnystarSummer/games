@@ -128,7 +128,6 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
                   Align(
                     alignment: Alignment.topCenter,
                     child: BoardWidget(
-                      _boardState,
                       (playingArea) {
                         setState(() {
                           isRecyclable = playingArea.isRecyclable;

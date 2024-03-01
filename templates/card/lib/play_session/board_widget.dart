@@ -16,10 +16,9 @@ import 'playing_area_widget.dart';
 /// This widget defines the game UI itself, without things like the settings
 /// button or the back button.
 class BoardWidget extends StatefulWidget {
-  final BoardState boardState;
   final ChangeCallback<PlayingArea> onHighlight;
 
-  const BoardWidget(this.boardState, this.onHighlight, {super.key});
+  const BoardWidget(this.onHighlight, {super.key});
 
   @override
   State<BoardWidget> createState() => _BoardWidgetState();
@@ -27,16 +26,10 @@ class BoardWidget extends StatefulWidget {
 
 class _BoardWidgetState extends State<BoardWidget> {
   final List<PlayingArea> _playingAreaList = [];
-  late final BoardState boardState;
-
-  @override
-  void initState() {
-    super.initState();
-    boardState = widget.boardState;
-  }
 
   @override
   Widget build(BuildContext context) {
+    final boardState = context.watch<BoardState>();
     GameLevel level = boardState.level;
 
     List<Widget> list = [];
@@ -62,20 +55,20 @@ class _BoardWidgetState extends State<BoardWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        StreamBuilder(
-          stream: boardState.player.allChanges,
-          builder: (context, child) {
-            return Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: list,
-              ),
-            );
-          },
-        ),
-        PlayerHandWidget(),
+        // StreamBuilder(
+        //   stream: boardState.player.allChanges,
+        //   builder: (context, child) {
+        //     return Padding(
+        //       padding: const EdgeInsets.all(10),
+        //       child: Row(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         crossAxisAlignment: CrossAxisAlignment.end,
+        //         children: list,
+        //       ),
+        //     );
+        //   },
+        // ),
+        //PlayerHandWidget(),
       ],
     );
   }
