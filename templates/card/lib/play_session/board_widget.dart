@@ -55,19 +55,19 @@ class _BoardWidgetState extends State<BoardWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        StreamBuilder(
-          stream: boardState.player.allChanges,
-          builder: (context, child) {
-            return Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: list,
-              ),
-            );
-          },
-        ),
+        // StreamBuilder(
+        //   stream: boardState.player.allChanges,
+        //   builder: (context, child) {
+        //     return Padding(
+        //       padding: const EdgeInsets.all(10),
+        //       child: Row(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         crossAxisAlignment: CrossAxisAlignment.end,
+        //         children: list,
+        //       ),
+        //     );
+        //   },
+        // ),
         //PlayerHandWidget(),
       ],
     );
