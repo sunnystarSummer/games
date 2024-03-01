@@ -68,7 +68,7 @@ class _BoardWidgetState extends State<BoardWidget> {
             );
           },
         ),
-        PlayerHandWidget(),
+        //PlayerHandWidget(),
       ],
     );
   }

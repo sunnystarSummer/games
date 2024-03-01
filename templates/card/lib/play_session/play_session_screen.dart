@@ -124,23 +124,23 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
                   ),
                   // const Spacer(),
                   // The actual UI of the game.
-                  
-                  // Align(
-                  //   alignment: Alignment.topCenter,
-                  //   child: BoardWidget(
-                  //     (playingArea) {
-                  //       setState(() {
-                  //         isRecyclable = playingArea.isRecyclable;
-                  //         isHighlighted = playingArea.isHighlighted;
-                  //
-                  //         if (!level.player.isGood) {
-                  //           _countdownTime = 3;
-                  //           startCountdown();
-                  //         }
-                  //       });
-                  //     },
-                  //   ),
-                  // ),
+
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: BoardWidget(
+                      (playingArea) {
+                        setState(() {
+                          isRecyclable = playingArea.isRecyclable;
+                          isHighlighted = playingArea.isHighlighted;
+
+                          if (!level.player.isGood) {
+                            _countdownTime = 3;
+                            startCountdown();
+                          }
+                        });
+                      },
+                    ),
+                  ),
 
                   Text(
                     AppLocalizations.of(context)!.gameHint,
