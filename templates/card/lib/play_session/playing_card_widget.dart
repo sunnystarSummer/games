@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../audio/audio_controller.dart';
 import '../audio/sounds.dart';
+import '../game_internals/board_state.dart';
 import '../game_internals/player.dart';
 import '../game_internals/playing_card.dart';
 import '../level_selection/levels.dart';
@@ -48,6 +49,7 @@ class _PlayingCardWidgetState extends State<PlayingCardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final boardState = context.watch<BoardState>();
     final cardValue = card.value;
     final frontImagePath = card.suit.frontImagePath;
     final backImagePath = card.suit.backImagePath(cardValue);
@@ -56,8 +58,10 @@ class _PlayingCardWidgetState extends State<PlayingCardWidget> {
       final cardWidget = SizedBox(
         width: PlayingCardWidget.width + 10,
         height: PlayingCardWidget.height + 10,
-        child: StreamBuilder(
-          stream: player!.allChanges,
+        child: ListenableBuilder(
+          // Make sure we rebuild every time there's an update
+          // to the player's hand.
+          listenable: boardState.player,
           builder: (context, child) {
             return FutureBuilder(
               future: Future.value(card.isFront),
@@ -118,10 +122,7 @@ class _PlayingCardWidgetState extends State<PlayingCardWidget> {
         child: cardWidget,
       );
 
-      final rotateCardWidget = randomRotate(
-        tappableCard,
-        card.rotateAngle
-      );
+      final rotateCardWidget = randomRotate(tappableCard, card.rotateAngle);
 
       return card.isPairingRepresentative ? cardWidgetAsDrag : rotateCardWidget;
     }
@@ -130,7 +131,7 @@ class _PlayingCardWidgetState extends State<PlayingCardWidget> {
     return cardSuit(card.suit.backImagePath(cardValue));
   }
 
-  Widget randomRotate(Widget child,double rotateAngle) {
+  Widget randomRotate(Widget child, double rotateAngle) {
     return Transform.rotate(
       angle: rotateAngle,
       child: child,
