@@ -33,6 +33,7 @@ class _BoardWidgetState extends State<BoardWidget> {
     GameLevel level = boardState.level;
 
     List<Widget> list = [];
+    list.add(SizedBox(width: 10));
     for (final cardSuit in level.cardSuits) {
       final playingArea = PlayingArea(
         trashType: cardSuit.trashType,
@@ -47,9 +48,9 @@ class _BoardWidgetState extends State<BoardWidget> {
       list.add(SizedBox(width: 10));
     }
 
-    if (list.isNotEmpty) {
-      list.removeLast();
-    }
+    // if (list.isNotEmpty) {
+    //   list.removeLast();
+    // }
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
