@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
-import 'package:after_layout/after_layout.dart';
 import 'package:card/level_selection/levels.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -55,19 +53,14 @@ class _BoardWidgetState extends State<BoardWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // StreamBuilder(
-        //   stream: boardState.player.allChanges,
-        //   builder: (context, child) {
-        //     return Padding(
-        //       padding: const EdgeInsets.all(10),
-        //       child: Row(
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         crossAxisAlignment: CrossAxisAlignment.end,
-        //         children: list,
-        //       ),
-        //     );
-        //   },
-        // ),
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: list,
+          ),
+        ),
         PlayerHandWidget(),
       ],
     );

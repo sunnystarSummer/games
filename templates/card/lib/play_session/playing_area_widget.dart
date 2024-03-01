@@ -122,6 +122,8 @@ class _PlayingAreaWidgetState extends State<PlayingAreaWidget> {
     var cardSuitsCount = widget.level.cardSuits.length;
     cardSuitsCount += 2;
 
+    return 100;
+
     if (1.sw < 1.sh) {
       return (1 / cardSuitsCount).sw;
     } else {

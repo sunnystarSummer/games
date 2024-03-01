@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -13,9 +11,9 @@ import '../style/palette.dart';
 
 class PlayingCardWidget extends StatefulWidget {
   // A standard playing card is 57.1mm x 88.9mm.
-  static double width = 0.095.sw;
+  static double width = 57.1;//0.095.sw;
 
-  static double height = width * (88.9 / 57.1);
+  static double height = 88.9;//width * (88.9 / 57.1);
 
   final PlayingCard card;
 
@@ -111,8 +109,8 @@ class _PlayingCardWidgetState extends State<PlayingCardWidget> {
 
       final tappableCard = InkWell(
         onTap: (!card.isPairingCompleted)
-            ? () async {
-                await player!.clickCard(card: card);
+            ? () {
+                player!.clickCard(card: card);
               }
             : null,
         child: cardWidget,
