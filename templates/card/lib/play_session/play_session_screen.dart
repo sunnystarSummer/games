@@ -3,9 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-
-import 'package:after_layout/after_layout.dart';
-import 'package:card/game_internals/player.dart';
 import 'package:card/level_selection/levels.dart';
 import 'package:card/play_session/playing_card_widget.dart';
 import 'package:flutter/material.dart';
@@ -39,8 +36,9 @@ class PlaySessionScreen extends StatefulWidget {
   State<PlaySessionScreen> createState() => _PlaySessionScreenState();
 }
 
-class _PlaySessionScreenState extends State<PlaySessionScreen>
-    with AfterLayoutMixin<PlaySessionScreen> {
+class _PlaySessionScreenState extends State<
+    PlaySessionScreen> // with AfterLayoutMixin<PlaySessionScreen> {
+{
   static final _log = Logger('PlaySessionScreen');
 
   static const _celebrationDuration = Duration(milliseconds: 3000);
@@ -226,6 +224,14 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
     _startOfPlay = DateTime.now();
     _boardState = BoardState(widget.level, onWin: _playerWon);
     startCountdown();
+
+    _boardState.openAllCards();
+
+    Future.delayed(Duration(seconds: 2)).then((value) {
+      setState(() {
+        _boardState.coverAllCards();
+      });
+    });
   }
 
   Future<void> _playerWon() async {
@@ -266,16 +272,16 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
     );
   }
 
-  @override
-  void afterFirstLayout(BuildContext context) {
-    _boardState.openAllCards();
-
-    Future.delayed(Duration(seconds: 2)).then((value) {
-      setState(() {
-        _boardState.coverAllCards();
-      });
-    });
-  }
+  // @override
+  // void afterFirstLayout(BuildContext context) {
+  //   _boardState.openAllCards();
+  //
+  //   Future.delayed(Duration(seconds: 2)).then((value) {
+  //     setState(() {
+  //       _boardState.coverAllCards();
+  //     });
+  //   });
+  // }
 
   void startCountdown() {
     const oneSec = Duration(seconds: 1);
