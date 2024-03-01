@@ -45,7 +45,7 @@ class PlayerHandWidget extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.all(8.0), // 添加間距
                         child: PlayingCardWidget(
-                          key: ValueKey<PlayingCard>(hand[index]),
+                          // key: ValueKey<PlayingCard>(hand[index]),
                           hand[index],
                           level: level,
                           player: boardState.player,
