@@ -16,59 +16,61 @@ class PlayerHandWidget extends StatelessWidget {
     int columnCount = boardState.columnCount;
     int rowCount = boardState.rowCount;
 
-    return ListenableBuilder(
-      // Make sure we rebuild every time there's an update
-      // to the player's hand.
-      listenable: boardState.player,
-      builder: (context, child) {
-        debugPrint('PlayerHandWidget ListenableBuilder');
 
-        List<PlayingCard> hand = level.hand;
-        int count = hand.length;
 
-        if (hand.isEmpty) {
-          return SizedBox.shrink();
-        }
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: PlayingCardWidget.height),
+        child: ListenableBuilder(
+          // Make sure we rebuild every time there's an update
+          // to the player's hand.
+          listenable: boardState.player,
+          builder: (context, child) {
+            debugPrint('PlayerHandWidget ListenableBuilder');
 
-        final contentWidget = Column(
-          children: List.generate(
-            rowCount,
-            (rowIndex) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  columnCount,
-                      (columnIndex) {
-                    int index = rowIndex * columnCount + columnIndex;
+            List<PlayingCard> hand = level.hand;
+            int count = hand.length;
 
-                    if (index < count) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0), // 添加間距
-                        child: PlayingCardWidget(
-                          // key: ValueKey<PlayingCard>(hand[index]),
-                          hand[index],
-                          level: level,
-                          player: boardState.player,
-                        ),
-                      );
-                    } else {
-                      return SizedBox(); // 如果超出索引範圍，返回一個空的 SizedBox
-                    }
-                  },
-                ),
-              );
+            if (hand.isEmpty) {
+              return SizedBox.shrink();
             }
-          ),
-        );
 
-        return Padding(
-          padding: const EdgeInsets.all(10),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: PlayingCardWidget.height),
-            child: contentWidget,
-          ),
-        );
-      },
+            final contentWidget = Column(
+              children: List.generate(
+                  rowCount,
+                      (rowIndex) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        columnCount,
+                            (columnIndex) {
+                          int index = rowIndex * columnCount + columnIndex;
+
+                          if (index < count) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0), // 添加間距
+                              child: PlayingCardWidget(
+                                key: ValueKey<PlayingCard>(hand[index]),
+                                hand[index],
+                                level: level,
+                                player: boardState.player,
+                              ),
+                            );
+                          } else {
+                            return SizedBox(); // 如果超出索引範圍，返回一個空的 SizedBox
+                          }
+                        },
+                      ),
+                    );
+                  }
+              ),
+            );
+
+            return contentWidget;
+          },
+        ),
+      ),
     );
   }
 }
