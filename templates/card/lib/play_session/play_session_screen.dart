@@ -57,10 +57,11 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
   int _countdownTime = 3;
   late Timer _timer;
 
+  late final GameLevel level;
+
   @override
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
-    final level = _boardState.level;
 
     double value = 0.5 / (_boardState.columnCount + 1);
     PlayingCardWidget.height = value.sh;
@@ -235,13 +236,13 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
   @override
   void initState() {
     super.initState();
+    level = widget.level;
     _startOfPlay = DateTime.now();
-    _boardState = BoardState(widget.level, onWin: _playerWon);
+    _boardState = BoardState(level, onWin: _playerWon);
   }
 
   Future<void> _playerWon() async {
     _log.info('Player won');
-    GameLevel level = _boardState.level;
 
     // TODO: replace with some meaningful score for the card game
     final score = Score(
@@ -291,7 +292,6 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
 
   void startCountdown() {
     const oneSec = Duration(seconds: 1);
-    final level = _boardState.level;
     final player = level.player;
 
     _timer = Timer.periodic(
