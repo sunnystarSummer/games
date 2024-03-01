@@ -33,20 +33,20 @@ class _BoardWidgetState extends State<BoardWidget> {
     GameLevel level = boardState.level;
 
     List<Widget> list = [];
-    list.add(SizedBox(width: 10));
-    for (final cardSuit in level.cardSuits) {
-      final playingArea = PlayingArea(
-        trashType: cardSuit.trashType,
-      );
-      final playingAreaWidget = PlayingAreaWidget(
-        playingArea,
-        level,
-        widget.onHighlight,
-      );
-      list.add(playingAreaWidget);
-      _playingAreaList.add(playingArea);
-      list.add(SizedBox(width: 10));
-    }
+    // list.add(SizedBox(width: 10));
+    // for (final cardSuit in level.cardSuits) {
+    //   final playingArea = PlayingArea(
+    //     trashType: cardSuit.trashType,
+    //   );
+    //   final playingAreaWidget = PlayingAreaWidget(
+    //     playingArea,
+    //     level,
+    //     widget.onHighlight,
+    //   );
+    //   list.add(playingAreaWidget);
+    //   _playingAreaList.add(playingArea);
+    //   list.add(SizedBox(width: 10));
+    // }
 
     // if (list.isNotEmpty) {
     //   list.removeLast();
