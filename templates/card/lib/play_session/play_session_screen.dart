@@ -122,38 +122,38 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
                       ),
                     ),
                   ),
-                  const Spacer(),
-                  // The actual UI of the game.
-                  BoardWidget(
-                    (playingArea) {
-                      setState(() {
-                        isRecyclable = playingArea.isRecyclable;
-                        isHighlighted = playingArea.isHighlighted;
-
-                        if (!level.player.isGood) {
-                          _countdownTime = 3;
-                          startCountdown();
-                        }
-                      });
-                    },
-                  ),
-
-                  // Align(
-                  //   alignment: Alignment.topCenter,
-                  //   child: BoardWidget(
-                  //     (playingArea) {
-                  //       setState(() {
-                  //         isRecyclable = playingArea.isRecyclable;
-                  //         isHighlighted = playingArea.isHighlighted;
+                  // const Spacer(),
+                  // // The actual UI of the game.
+                  // BoardWidget(
+                  //   (playingArea) {
+                  //     setState(() {
+                  //       isRecyclable = playingArea.isRecyclable;
+                  //       isHighlighted = playingArea.isHighlighted;
                   //
-                  //         if (!level.player.isGood) {
-                  //           _countdownTime = 3;
-                  //           startCountdown();
-                  //         }
-                  //       });
-                  //     },
-                  //   ),
+                  //       if (!level.player.isGood) {
+                  //         _countdownTime = 3;
+                  //         startCountdown();
+                  //       }
+                  //     });
+                  //   },
                   // ),
+
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: BoardWidget(
+                      (playingArea) {
+                        setState(() {
+                          isRecyclable = playingArea.isRecyclable;
+                          isHighlighted = playingArea.isHighlighted;
+
+                          if (!level.player.isGood) {
+                            _countdownTime = 3;
+                            startCountdown();
+                          }
+                        });
+                      },
+                    ),
+                  ),
 
                   Text(
                     AppLocalizations.of(context)!.gameHint,
@@ -279,14 +279,14 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    startCountdown();
     _boardState.openAllCards();
+    startCountdown();
 
-    Future.delayed(Duration(seconds: 2)).then((value) {
-      setState(() {
-        _boardState.coverAllCards();
-      });
-    });
+    // Future.delayed(Duration(seconds: 2)).then((value) {
+    //   setState(() {
+    //     _boardState.coverAllCards();
+    //   });
+    // });
   }
 
   void startCountdown() {
