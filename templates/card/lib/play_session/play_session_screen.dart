@@ -282,11 +282,11 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
     _boardState.openAllCards();
     startCountdown();
 
-    // Future.delayed(Duration(seconds: 2)).then((value) {
-    //   setState(() {
-    //     _boardState.coverAllCards();
-    //   });
-    // });
+    Future.delayed(Duration(seconds: 2)).then((value) {
+      setState(() {
+        _boardState.coverAllCards();
+      });
+    });
   }
 
   void startCountdown() {
