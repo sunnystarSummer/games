@@ -56,7 +56,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
 
   late final GameLevel level;
 
-  late final Stream<int> _countdownTime;
+  late Stream<int> _countdownTime;
 
   @override
   Widget build(BuildContext context) {
@@ -142,14 +142,14 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
                     alignment: Alignment.topCenter,
                     child: BoardWidget(
                       (playingArea) {
-                        // setState(() {
-                        isRecyclable = playingArea.isRecyclable;
-                        isHighlighted = playingArea.isHighlighted;
+                        setState(() {
+                          isRecyclable = playingArea.isRecyclable;
+                          isHighlighted = playingArea.isHighlighted;
 
-                        if (!level.player.isGood) {
-                          startCountdown();
-                        }
-                        // });
+                          if (!level.player.isGood) {
+                            startCountdown();
+                          }
+                        });
                       },
                     ),
                   ),
@@ -247,7 +247,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
     level = widget.level;
     _startOfPlay = DateTime.now();
     _boardState = BoardState(level, onWin: _playerWon);
-
+    _boardState.openAllCards();
     startCountdown();
   }
 
@@ -290,8 +290,6 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    _boardState.openAllCards();
-
     Future.delayed(Duration(seconds: 2)).then((value) {
       setState(() {
         _boardState.coverAllCards();
@@ -311,14 +309,15 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
 
           Timer.periodic(
             oneSec,
-                (Timer timer) async {
+            (Timer timer) async {
               if (countdownTime == 0) {
                 controller.add(-1);
-
-                if (!player.isGood) {
-                  _boardState.shuffle();
-                  player.isGood = true;
-                }
+                setState(() {
+                  if (!player.isGood) {
+                    _boardState.shuffle();
+                    player.isGood = true;
+                  }
+                });
 
                 timer.cancel();
                 await controller.close();
