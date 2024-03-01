@@ -54,10 +54,9 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
   bool isRecyclable = false;
   bool isHighlighted = false;
 
-  int _countdownTime = 3;
-  late Timer _timer;
-
   late final GameLevel level;
+
+  late final Stream<int> _countdownTime;
 
   @override
   Widget build(BuildContext context) {
@@ -143,15 +142,14 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
                     alignment: Alignment.topCenter,
                     child: BoardWidget(
                       (playingArea) {
-                        setState(() {
-                          isRecyclable = playingArea.isRecyclable;
-                          isHighlighted = playingArea.isHighlighted;
+                        // setState(() {
+                        isRecyclable = playingArea.isRecyclable;
+                        isHighlighted = playingArea.isHighlighted;
 
-                          if (!level.player.isGood) {
-                            _countdownTime = 3;
-                            startCountdown();
-                          }
-                        });
+                        if (!level.player.isGood) {
+                          startCountdown();
+                        }
+                        // });
                       },
                     ),
                   ),
@@ -192,33 +190,44 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
                   ),
                 ),
               ),
-              Visibility(
-                visible: (_countdownTime != -1),
-                child: SizedBox.expand(
-                  child: AbsorbPointer(
-                    absorbing: true, // 将其设置为 true 以禁用用户点击事件
-                    child: GestureDetector(
-                      onTap: () {
-                        // 在此处添加任何您想要防止用户点击时执行的操作
-                        debugPrint('Screen is disabled. You cannot click!');
-                      },
-                      child: Center(
-                        child: AnimatedSwitcher(
-                          duration: Duration(milliseconds: 500),
-                          child: Text(
-                            '$_countdownTime',
-                            key: ValueKey<int>(_countdownTime),
-                            style: TextStyle(
-                              fontSize: 180.0.sp,
-                              fontWeight: FontWeight.bold,
+              StreamBuilder<int>(
+                stream: _countdownTime,
+                builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                  if (snapshot.hasData) {
+                    final countdownTime = snapshot.requireData;
+
+                    return Visibility(
+                      visible: (countdownTime != -1),
+                      child: SizedBox.expand(
+                        child: AbsorbPointer(
+                          absorbing: true, // 将其设置为 true 以禁用用户点击事件
+                          child: GestureDetector(
+                            onTap: () {
+                              // 在此处添加任何您想要防止用户点击时执行的操作
+                              debugPrint(
+                                  'Screen is disabled. You cannot click!');
+                            },
+                            child: Center(
+                              child: AnimatedSwitcher(
+                                duration: Duration(milliseconds: 500),
+                                child: Text(
+                                  '$countdownTime',
+                                  key: ValueKey<int>(countdownTime),
+                                  style: TextStyle(
+                                    fontSize: 180.0.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-              )
+                    );
+                  }
+                  return SizedBox.shrink();
+                },
+              ),
             ],
           ),
         ),
@@ -228,7 +237,6 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
 
   @override
   void dispose() {
-    _timer.cancel();
     _boardState.dispose();
     super.dispose();
   }
@@ -239,6 +247,8 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
     level = widget.level;
     _startOfPlay = DateTime.now();
     _boardState = BoardState(level, onWin: _playerWon);
+
+    startCountdown();
   }
 
   Future<void> _playerWon() async {
@@ -281,7 +291,6 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
   @override
   void afterFirstLayout(BuildContext context) {
     _boardState.openAllCards();
-    startCountdown();
 
     Future.delayed(Duration(seconds: 2)).then((value) {
       setState(() {
@@ -291,29 +300,37 @@ class _PlaySessionScreenState extends State<PlaySessionScreen>
   }
 
   void startCountdown() {
-    const oneSec = Duration(seconds: 1);
-    final player = level.player;
+    _countdownTime = (() {
+      late final StreamController<int> controller;
+      controller = StreamController<int>(
+        onListen: () async {
+          int countdownTime = 3;
+          controller.add(countdownTime);
+          const oneSec = Duration(seconds: 1);
+          final player = level.player;
 
-    _timer = Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (_countdownTime == 0) {
-          setState(() {
-            _countdownTime = -1;
+          Timer.periodic(
+            oneSec,
+                (Timer timer) async {
+              if (countdownTime == 0) {
+                controller.add(-1);
 
-            if (!player.isGood) {
-              _boardState.shuffle();
-              player.isGood = true;
-            }
-          });
-          timer.cancel();
-          // 这里可以处理倒计时结束后的逻辑，比如开始游戏等
-        } else {
-          setState(() {
-            _countdownTime--;
-          });
-        }
-      },
-    );
+                if (!player.isGood) {
+                  _boardState.shuffle();
+                  player.isGood = true;
+                }
+
+                timer.cancel();
+                await controller.close();
+              } else {
+                countdownTime--;
+                controller.add(countdownTime);
+              }
+            },
+          );
+        },
+      );
+      return controller.stream;
+    })();
   }
 }

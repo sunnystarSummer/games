@@ -49,42 +49,48 @@ class _PlayingCardWidgetState extends State<PlayingCardWidget> {
     final cardValue = card.value;
     final frontImagePath = card.suit.frontImagePath;
     final backImagePath = card.suit.backImagePath(cardValue);
+    final imagePath = card.isFront ? frontImagePath : backImagePath;
 
     if (player != null) {
-      final cardWidget = SizedBox(
+
+      Widget cardWidget = SizedBox(
         width: PlayingCardWidget.width + 10,
         height: PlayingCardWidget.height + 10,
-        child: StreamBuilder(
-          stream: player!.allChanges,
-          builder: (context, child) {
-            return FutureBuilder(
-              future: Future.value(card.isFront),
-              builder: (BuildContext context, AsyncSnapshot<Object?> snap) {
-                final imagePath = card.isFront ? frontImagePath : backImagePath;
-
-                if (card.isSortedForRecycling) {
-                  return SizedBox.shrink();
-                }
-
-                if (card.isPairingCompleted) {
-                  if (card.isPairingRepresentative) {
-                    //兩張卡重疊
-                    final cardStack = _PairCardStack(
-                      card: card,
-                    );
-
-                    return cardStack;
-                  } else {
-                    return SizedBox.shrink();
-                  }
-                }
-
-                return cardSuit(imagePath);
-              },
-            );
-          },
-        ),
+        child: cardSuit(imagePath),
       );
+
+      if (card.isSortedForRecycling) {
+        cardWidget = SizedBox(
+          width: PlayingCardWidget.width + 10,
+          height: PlayingCardWidget.height + 10,
+          child: SizedBox.shrink(),
+        );
+      }
+
+      if (card.isPairingCompleted) {
+        if (card.isPairingRepresentative) {
+        } else {
+          cardWidget = SizedBox(
+            width: PlayingCardWidget.width + 10,
+            height: PlayingCardWidget.height + 10,
+            child: SizedBox.shrink(),
+          );
+        }
+      }
+
+
+      if (card.isPairingCompleted) {
+        if (card.isPairingRepresentative) {
+          //兩張卡重疊
+          cardWidget = SizedBox(
+            width: PlayingCardWidget.width + 10,
+            height: PlayingCardWidget.height + 10,
+            child: _PairCardStack(
+              card: card,
+            ),
+          );
+        }
+      }
 
       final cardWidgetAsDrag = Draggable(
         feedback: Transform.rotate(

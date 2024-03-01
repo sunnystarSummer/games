@@ -4,6 +4,8 @@
 
 import 'dart:developer' as dev;
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +15,7 @@ import 'package:provider/provider.dart';
 
 import 'app_lifecycle/app_lifecycle.dart';
 import 'audio/audio_controller.dart';
+import 'firebase_options.dart';
 import 'player_progress/player_progress.dart';
 import 'router.dart';
 import 'settings/settings.dart';
@@ -39,6 +42,32 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  /*{
+  final db = FirebaseFirestore.instance;
+  // Create a new user with a first and last name
+  final user = <String, dynamic>{
+    "name": "Ada",
+    "score": "111",
+    "time": ""
+  };
+
+  print('Read Data');
+  await db.collection("score_board").get().then((event) {
+    for (var doc in event.docs) {
+      print("${doc.id} => ${doc.data()}");
+    }
+  });
+
+  // Add a new document with a generated ID
+  print('Add a new document with a generated ID');
+  db.collection("score_board").add(user).then((DocumentReference doc) =>
+      print('DocumentSnapshot added with ID: ${doc.id}'));
+  }*/
 
   runApp(MyApp());
 }
