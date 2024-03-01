@@ -11,9 +11,9 @@ import '../style/palette.dart';
 
 class PlayingCardWidget extends StatefulWidget {
   // A standard playing card is 57.1mm x 88.9mm.
-  static double width = 57.1;//0.095.sw;
+  static double width = 0.095.sw;//57.1;
 
-  static double height = 88.9;//width * (88.9 / 57.1);
+  static double height = width * (88.9 / 57.1);//88.9;
 
   final PlayingCard card;
 
