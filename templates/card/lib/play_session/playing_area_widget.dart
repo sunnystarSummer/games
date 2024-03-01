@@ -5,10 +5,6 @@ import 'package:card/level_selection/levels.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
-import '../audio/audio_controller.dart';
-import '../audio/sounds.dart';
-import '../game_internals/board_state.dart';
 import '../game_internals/playing_area.dart';
 import '../game_internals/playing_card.dart';
 import '../style/palette.dart';
@@ -131,11 +127,6 @@ class _PlayingAreaWidgetState extends State<PlayingAreaWidget> {
     } else {
       return (1 / cardSuitsCount).sh;
     }
-  }
-
-  void _onAreaTap() {
-    final audioController = context.read<AudioController>();
-    audioController.playSfx(SfxType.huhsh);
   }
 
   void _onDragAccept(DragTargetDetails<PlayingCardDragData> details) {

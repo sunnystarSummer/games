@@ -27,8 +27,6 @@ class PlayerHandWidget extends StatelessWidget {
           // to the player's hand.
           listenable: boardState.player,
           builder: (context, child) {
-            debugPrint('PlayerHandWidget ListenableBuilder');
-
             List<PlayingCard> hand = level.hand;
             int count = hand.length;
 
