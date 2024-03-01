@@ -56,16 +56,16 @@ flutter:
     - assets/images/items/trashClassification_0041/
     - assets/images/items/trashClassification_0042/
     - assets/images/items/trashClassification_0043/
-    - assets/images/items/trashClassification_0044/
+#    - assets/images/items/trashClassification_0044/
     - assets/images/items/trashClassification_0050/
     - assets/images/items/trashClassification_0061/
     - assets/images/items/trashClassification_0062/
     - assets/images/items/trashClassification_0063/
     - assets/images/items/trashClassification_0064/
     - assets/images/items/trashClassification_0070/
-    - assets/images/items/trashClassification_0080/
-    - assets/images/items/trashClassification_0090/
-    - assets/images/items/trashClassification_0100/
+#    - assets/images/items/trashClassification_0080/
+#    - assets/images/items/trashClassification_0090/
+#    - assets/images/items/trashClassification_0100/
     - assets/music/
     - assets/sfx/
 
