@@ -1,0 +1,19 @@
+{
+  "gameName": "Défi Recyclage",
+  "play": "Jouer",
+  "settings": "Paramètres",
+  "name": "Nom",
+  "changeName": "Changer le nom",
+  "close": "Fermer",
+  "soundFX": "Effets sonores",
+  "music": "Musique",
+  "resetProgress": "Réinitialiser la progression",
+  "hasBeenReset": "La progression du joueur a été réinitialisée.",
+  "back": "Retour",
+  "gameHint": "Retournez les cartes pour trouver des motifs correspondants,\ntirez les paires réussies vers la zone de recyclage.",
+  "musicByMrSmith": "Musique par M. Smith",
+  "youWon": "Vous avez gagné !",
+  "score": "Score",
+  "time": "Temps",
+  "continueText": "Continuer"
+}

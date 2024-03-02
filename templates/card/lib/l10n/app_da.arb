@@ -1,0 +1,19 @@
+{
+  "gameName": "Recycle Challenge",
+  "play": "Spil",
+  "settings": "Indstillinger",
+  "name": "Navn",
+  "changeName": "Ændre navn",
+  "close": "Luk",
+  "soundFX": "Lyd FX",
+  "music": "Musik",
+  "resetProgress": "Nulstil fremskridt",
+  "hasBeenReset": "Spillerens fremskridt er blevet nulstillet.",
+  "back": "Tilbage",
+  "gameHint": "Flip kort for at finde matchende mønstre, \ntræk vellykkede par til genbrugsområdet.",
+  "musicByMrSmith": "Musik af Mr. Smith",
+  "youWon": "Du har vundet!",
+  "score": "Point",
+  "time": "Tid",
+  "continueText": "Fortsæt"
+}

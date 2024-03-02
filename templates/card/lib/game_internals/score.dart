@@ -4,17 +4,21 @@
 
 /// Encapsulates a score and the arithmetic to compute it.
 class Score {
-  final int score;
+  final BigInt score;
 
   final Duration duration;
 
   final int level;
 
-  factory Score(int level, int difficulty, Duration duration) {
-    // The higher the difficulty, the higher the score.
-    var score = difficulty;
-    // The lower the time to beat the level, the higher the score.
-    score *= 10000 ~/ (duration.inSeconds.abs() + 1);
+  // factory Score(int level, int difficulty, Duration duration) {
+  //   // The higher the difficulty, the higher the score.
+  //   var score = difficulty;
+  //   // The lower the time to beat the level, the higher the score.
+  //   score *= 10000 * 1000 ~/ (duration.inSeconds.abs() + 1);
+  //   return Score._(score, duration, level);
+  // }
+
+  factory Score(BigInt score, Duration duration, int level) {
     return Score._(score, duration, level);
   }
 

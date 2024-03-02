@@ -1,0 +1,19 @@
+{
+  "gameName": "Sfida Riciclo",
+  "play": "Gioca",
+  "settings": "Impostazioni",
+  "name": "nome",
+  "changeName": "Modifica nome",
+  "close": "Chiudi",
+  "soundFX": "Effetti sonori",
+  "music": "Musica",
+  "resetProgress": "Reimposta progressi",
+  "hasBeenReset": "I progressi del giocatore sono stati reimpostati.",
+  "back": "Indietro",
+  "gameHint": "Gira le carte per trovare pattern corrispondenti,\ntrascina le coppie riuscite nell'area di riciclaggio.",
+  "musicByMrSmith": "Musica di Mr Smith",
+  "youWon": "Hai vinto!",
+  "score": "Punteggio",
+  "time": "Tempo",
+  "continueText": "Continua"
+}
