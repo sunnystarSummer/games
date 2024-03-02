@@ -1,0 +1,19 @@
+{
+  "gameName": "Recycle Uitdaging",
+  "play": "Spelen",
+  "settings": "Instellingen",
+  "name": "naam",
+  "changeName": "naam wijzigen",
+  "close": "Sluiten",
+  "soundFX": "Geluidseffecten",
+  "music": "Muziek",
+  "resetProgress": "Voortgang resetten",
+  "hasBeenReset": "De voortgang van de speler is gereset.",
+  "back": "Terug",
+  "gameHint": "Draai kaarten om bijpassende patronen te vinden, \nsleep succesvolle paren naar het recycle-gebied.",
+  "musicByMrSmith": "Muziek door Mr. Smith",
+  "youWon": "Je hebt gewonnen!",
+  "score": "Score",
+  "time": "Tijd",
+  "continueText": "Doorgaan"
+}

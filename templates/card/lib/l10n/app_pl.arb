@@ -1,0 +1,19 @@
+{
+  "gameName": "Wyzwanie Recyklingowe",
+  "play": "Graj",
+  "settings": "Ustawienia",
+  "name": "imię",
+  "changeName": "Zmień imię",
+  "close": "Zamknij",
+  "soundFX": "Efekty dźwiękowe",
+  "music": "Muzyka",
+  "resetProgress": "Zresetuj postęp",
+  "hasBeenReset": "Postęp gracza został zresetowany.",
+  "back": "Wróć",
+  "gameHint": "Obróć karty, aby znaleźć pasujące wzory, \nprzeciągnij udane pary do obszaru recyklingu.",
+  "musicByMrSmith": "Muzyka: Mr Smith",
+  "youWon": "Wygrałeś!",
+  "score": "Wynik",
+  "time": "Czas",
+  "continueText": "Kontynuuj"
+}

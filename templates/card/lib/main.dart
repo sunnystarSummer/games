@@ -4,18 +4,23 @@
 
 import 'dart:developer' as dev;
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
 import 'app_lifecycle/app_lifecycle.dart';
 import 'audio/audio_controller.dart';
+import 'firebase_options.dart';
 import 'player_progress/player_progress.dart';
 import 'router.dart';
 import 'settings/settings.dart';
 import 'style/palette.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   // Basic logging setup.
@@ -37,6 +42,32 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  /*{
+  final db = FirebaseFirestore.instance;
+  // Create a new user with a first and last name
+  final user = <String, dynamic>{
+    "name": "Ada",
+    "score": "111",
+    "time": ""
+  };
+
+  print('Read Data');
+  await db.collection("score_board").get().then((event) {
+    for (var doc in event.docs) {
+      print("${doc.id} => ${doc.data()}");
+    }
+  });
+
+  // Add a new document with a generated ID
+  print('Add a new document with a generated ID');
+  db.collection("score_board").add(user).then((DocumentReference doc) =>
+      print('DocumentSnapshot added with ID: ${doc.id}'));
+  }*/
 
   runApp(MyApp());
 }
@@ -74,31 +105,46 @@ class MyApp extends StatelessWidget {
         child: Builder(builder: (context) {
           final palette = context.watch<Palette>();
 
-          return MaterialApp.router(
-            title: 'My Flutter Game',
-            theme: ThemeData.from(
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: palette.darkPen,
-                background: palette.backgroundMain,
-              ),
-              textTheme: TextTheme(
-                bodyMedium: TextStyle(color: palette.ink),
-              ),
-              useMaterial3: true,
-            ).copyWith(
-              // Make buttons more fun.
-              filledButtonTheme: FilledButtonThemeData(
-                style: FilledButton.styleFrom(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+          return ScreenUtilInit(
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            // Use builder only if you need to use library outside ScreenUtilInit context
+            builder: (_, child) {
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                title: 'recycle_challenge',
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                // supportedLocales: AppLocalizations.supportedLocales,
+                supportedLocales: const [
+                  Locale('en'), // English
+                  //Locale('vi'),
+                ],
+                theme: ThemeData.from(
+                  colorScheme: ColorScheme.fromSeed(
+                    seedColor: palette.darkPen,
+                    background: palette.backgroundMain,
+                  ),
+                  textTheme: TextTheme(
+                    bodyMedium: TextStyle(color: palette.ink),
+                  ),
+                  useMaterial3: true,
+                ).copyWith(
+                  // Make buttons more fun.
+                  filledButtonTheme: FilledButtonThemeData(
+                    style: FilledButton.styleFrom(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            routeInformationProvider: router.routeInformationProvider,
-            routeInformationParser: router.routeInformationParser,
-            routerDelegate: router.routerDelegate,
+                routeInformationProvider: router.routeInformationProvider,
+                routeInformationParser: router.routeInformationParser,
+                routerDelegate: router.routerDelegate,
+              );
+            },
           );
         }),
       ),

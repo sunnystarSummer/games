@@ -1,0 +1,19 @@
+{
+  "gameName": "Recycle Challenge",
+  "play": "Spielen",
+  "settings": "Einstellungen",
+  "name": "Name",
+  "changeName": "Namen ändern",
+  "close": "Schließen",
+  "soundFX": "Soundeffekte",
+  "music": "Musik",
+  "resetProgress": "Fortschritt zurücksetzen",
+  "hasBeenReset": "Der Spielerfortschritt wurde zurückgesetzt.",
+  "back": "Zurück",
+  "gameHint": "Karten umdrehen, um passende Muster zu finden, \nerfolgreiche Paare in den Recycling-Bereich ziehen.",
+  "musicByMrSmith": "Musik von Herrn Smith",
+  "youWon": "Du hast gewonnen!",
+  "score": "Punktzahl",
+  "time": "Zeit",
+  "continueText": "Fortsetzen"
+}

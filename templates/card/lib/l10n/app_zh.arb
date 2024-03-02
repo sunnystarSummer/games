@@ -1,0 +1,19 @@
+{
+  "gameName": "回收挑战",
+  "play": "开始游戏",
+  "settings": "设置",
+  "name": "名称",
+  "changeName": "更改名称",
+  "close": "关闭",
+  "soundFX": "音效",
+  "music": "音乐",
+  "resetProgress": "重置进度",
+  "hasBeenReset": "玩家进度已重置。",
+  "back": "返回",
+  "gameHint": "翻转卡片找到匹配的图案，\n将成功的配对拖到回收区。",
+  "musicByMrSmith": "音乐由Smith先生提供",
+  "youWon": "你赢了！",
+  "score": "分数",
+  "time": "时间",
+  "continueText": "继续"
+}

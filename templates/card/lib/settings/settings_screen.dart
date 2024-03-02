@@ -12,6 +12,7 @@ import '../style/palette.dart';
 import '../style/responsive_screen.dart';
 import 'custom_name_dialog.dart';
 import 'settings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -29,8 +30,8 @@ class SettingsScreen extends StatelessWidget {
         squarishMainArea: ListView(
           children: [
             _gap,
-            const Text(
-              'Settings',
+            Text(
+              AppLocalizations.of(context)!.settings,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Permanent Marker',
@@ -39,13 +40,11 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             _gap,
-            const _NameChangeLine(
-              'Name',
-            ),
+            // _NameChangeLine(AppLocalizations.of(context)!.name),
             ValueListenableBuilder<bool>(
               valueListenable: settings.soundsOn,
               builder: (context, soundsOn, child) => _SettingsLine(
-                'Sound FX',
+                AppLocalizations.of(context)!.soundFX,
                 Icon(soundsOn ? Icons.graphic_eq : Icons.volume_off),
                 onSelected: () => settings.toggleSoundsOn(),
               ),
@@ -53,21 +52,21 @@ class SettingsScreen extends StatelessWidget {
             ValueListenableBuilder<bool>(
               valueListenable: settings.musicOn,
               builder: (context, musicOn, child) => _SettingsLine(
-                'Music',
+                AppLocalizations.of(context)!.music,
                 Icon(musicOn ? Icons.music_note : Icons.music_off),
                 onSelected: () => settings.toggleMusicOn(),
               ),
             ),
             _SettingsLine(
-              'Reset progress',
+              AppLocalizations.of(context)!.resetProgress,
               const Icon(Icons.delete),
               onSelected: () {
                 context.read<PlayerProgress>().reset();
 
                 final messenger = ScaffoldMessenger.of(context);
                 messenger.showSnackBar(
-                  const SnackBar(
-                      content: Text('Player progress has been reset.')),
+                  SnackBar(
+                      content: Text(AppLocalizations.of(context)!.hasBeenReset)),
                 );
               },
             ),
@@ -78,7 +77,7 @@ class SettingsScreen extends StatelessWidget {
           onPressed: () {
             GoRouter.of(context).pop();
           },
-          child: const Text('Back'),
+          child: Text(AppLocalizations.of(context)!.back),
         ),
       ),
     );

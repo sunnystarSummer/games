@@ -1,0 +1,19 @@
+{
+  "gameName": "Återvinningsutmaning",
+  "play": "Spela",
+  "settings": "Inställningar",
+  "name": "namn",
+  "changeName": "Byt namn",
+  "close": "Stäng",
+  "soundFX": "Ljudeffekter",
+  "music": "Musik",
+  "resetProgress": "Återställ framsteg",
+  "hasBeenReset": "Spelarens framsteg har återställts.",
+  "back": "Tillbaka",
+  "gameHint": "Vänd kort för att hitta matchande mönster, \ndra lyckade par till återvinningsområdet.",
+  "musicByMrSmith": "Musik av Mr Smith",
+  "youWon": "Du vann!",
+  "score": "Poäng",
+  "time": "Tid",
+  "continueText": "Fortsätt"
+}
