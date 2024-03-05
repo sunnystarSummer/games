@@ -5,7 +5,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../game_internals/score.dart';
@@ -39,11 +38,21 @@ class WinGameScreen extends StatelessWidget {
     final db = FirebaseFirestore.instance;
     final collection = db.collection("score_board");
 
-    Widget flag = SizedBox.shrink();
-    flag = Flag.fromString(
+    Widget flag = Flag.fromString(
       countryCode,
       borderRadius: 8,
     );
+
+    if (countryCode.isEmpty) {
+      flag = Flag.fromString(
+        deviceLanguageCode,
+        borderRadius: 8,
+      );
+    }
+
+    if (countryCode == 'TW') {
+      flag = Image.asset('assets/images/background/Meihua_ROC.png');
+    }
 
     return Scaffold(
       backgroundColor: palette.backgroundPlaySession,

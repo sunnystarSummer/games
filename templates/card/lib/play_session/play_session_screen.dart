@@ -86,18 +86,24 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     BoardWidget.cardHeight = value.sh;
     BoardWidget.cardWidth = BoardWidget.cardHeight * (57.1 / 88.9);
 
-    final Locale locale = View.of(context).platformDispatcher.locale;
-    Widget flag;
-    if (locale.countryCode == null) {
+    final Locale deviceLocale = View.of(context).platformDispatcher.locale;
+    final countryCode = deviceLocale.countryCode ?? '';
+    final languageCode = deviceLocale.languageCode;
+
+    Widget flag = Flag.fromString(
+      countryCode,
+      borderRadius: 8,
+    );
+
+    if (countryCode.isEmpty) {
       flag = Flag.fromString(
-        locale.languageCode,
+        languageCode,
         borderRadius: 8,
       );
-    } else {
-      flag = Flag.fromString(
-        locale.countryCode!,
-        borderRadius: 8,
-      );
+    }
+
+    if (countryCode == 'TW') {
+      flag = Image.asset('assets/images/background/Meihua_ROC.png');
     }
 
     return MultiProvider(

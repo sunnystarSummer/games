@@ -30,6 +30,23 @@ class MainMenuScreen extends StatelessWidget {
 
     final Locale deviceLocale = View.of(context).platformDispatcher.locale;
     final countryCode = deviceLocale.countryCode ?? '';
+    final languageCode = deviceLocale.languageCode;
+
+    Widget flag = Flag.fromString(
+      countryCode,
+      borderRadius: 8,
+    );
+
+    if (countryCode.isEmpty) {
+      flag = Flag.fromString(
+        languageCode,
+        borderRadius: 8,
+      );
+    }
+
+    if (countryCode == 'TW') {
+      flag = Image.asset('assets/images/background/Meihua_ROC.png');
+    }
 
     String doc = deviceLocale.languageCode;
     if (countryCode.isNotEmpty) {
@@ -39,24 +56,6 @@ class MainMenuScreen extends StatelessWidget {
     final db = FirebaseFirestore.instance;
     final collection = db.collection("score_board");
     final document = collection.doc(doc);
-
-    Widget flag;
-    flag = Flag.fromString(
-      countryCode,
-      borderRadius: 8,
-    );
-
-    // if (countryCode.isNotEmpty) {
-    //   flag = Flag.fromString(
-    //     deviceLocale.languageCode,
-    //     borderRadius: 8,
-    //   );
-    // } else {
-    //   flag = Flag.fromString(
-    //     countryCode,
-    //     borderRadius: 8,
-    //   );
-    // }
 
     return Scaffold(
       backgroundColor: palette.backgroundMain,
@@ -128,7 +127,8 @@ class MainMenuScreen extends StatelessWidget {
                     debugPrint('happinessScale: $happinessScale');
 
                     int value = happinessScale * 100 ~/ 1;
-                    happinessPercentage = '${(happinessScale * 100).toStringAsFixed(2)}%';
+                    happinessPercentage =
+                        '${(happinessScale * 100).toStringAsFixed(2)}%';
                   }
 
                   return Column(
