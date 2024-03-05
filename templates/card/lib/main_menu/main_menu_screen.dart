@@ -151,8 +151,11 @@ class MainMenuScreen extends StatelessWidget {
                         Center(
                           child: Opacity(
                             opacity: 0.6,
-                            child: Image.asset(
-                                'assets/images/card_suit/earth_nature_futaba.png'),
+                            child: FittedBox(
+                              fit: BoxFit.contain,
+                              child: Image.asset(
+                                  'assets/images/card_suit/earth_nature_futaba.png'),
+                            ),
                           ),
                         ),
                         Center(
