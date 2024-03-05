@@ -118,6 +118,18 @@ class MainMenuScreen extends StatelessWidget {
                           countryCode,
                           borderRadius: 8,
                         );
+
+                        if (countryCode.isEmpty) {
+                          heightScoreFlag = Flag.fromString(
+                            languageCode,
+                            borderRadius: 8,
+                          );
+                        }
+
+                        if (countryCode == 'TW') {
+                          heightScoreFlag = Image.asset(
+                              'assets/images/background/Meihua_ROC.png');
+                        }
                       }
                     }
 
