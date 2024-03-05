@@ -6,6 +6,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flag/flag_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -147,26 +148,29 @@ class MainMenuScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Stack(children: [
-                        Align(
-                          alignment: Alignment.center,
+                        Center(
                           child: Opacity(
                             opacity: 0.6,
                             child: Image.asset(
                                 'assets/images/card_suit/earth_nature_futaba.png'),
                           ),
                         ),
-                        Opacity(
-                          opacity: 0.2,
-                          child: Transform.scale(
-                            scale: 1.0,
-                            child: heightScoreFlag,
+                        Center(
+                          child: Opacity(
+                            opacity: 0.2,
+                            child: Transform.scale(
+                              scale: 1.0,
+                              child: heightScoreFlag,
+                            ),
                           ),
                         ),
-                        Opacity(
-                          opacity: 0.4,
-                          child: Transform.scale(
-                            scale: happinessScale,
-                            child: flag,
+                        Center(
+                          child: Opacity(
+                            opacity: 0.4,
+                            child: Transform.scale(
+                              scale: happinessScale,
+                              child: flag,
+                            ),
                           ),
                         ),
                         Align(
