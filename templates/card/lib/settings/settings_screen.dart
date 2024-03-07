@@ -40,7 +40,7 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             _gap,
-            _NameChangeLine(AppLocalizations.of(context)!.name),
+            // _NameChangeLine(AppLocalizations.of(context)!.name),
             ValueListenableBuilder<bool>(
               valueListenable: settings.soundsOn,
               builder: (context, soundsOn, child) => _SettingsLine(

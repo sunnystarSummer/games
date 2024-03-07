@@ -22,6 +22,7 @@ import '../player_progress/player_progress.dart';
 import '../style/confetti.dart';
 import '../style/my_button.dart';
 import '../style/palette.dart';
+import '../widgets/symbolic_flag.dart';
 import 'board_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:ui' as ui;
@@ -90,21 +91,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     final countryCode = deviceLocale.countryCode ?? '';
     final languageCode = deviceLocale.languageCode;
 
-    Widget flag = Flag.fromString(
-      countryCode,
-      borderRadius: 8,
-    );
-
-    if (countryCode.isEmpty) {
-      flag = Flag.fromString(
-        languageCode,
-        borderRadius: 8,
-      );
-    }
-
-    if (countryCode == 'TW') {
-      flag = Image.asset('assets/images/background/Meihua_ROC.png');
-    }
+    Widget flag = SymbolicFlag(countryCode, languageCode);
 
     return MultiProvider(
       providers: [
@@ -159,9 +146,22 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
                       const hint = 'DO YOU BEST';
                       String comboText = hint;
                       if (comboValue == (level.hand.length ~/ 2)) {
-                        comboText = 'FULL COMBO';
+                        comboText = 'x$comboValue BONUS';
+
+                        return Text(
+                          comboText,
+                          key: ValueKey<int>(comboValue),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontFamily: 'Permanent Marker',
+                            fontSize: 20.0.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
                       } else if (comboValue != 0) {
-                        comboText = '$comboValue COMBO';
+                        //紅利
+                        comboText = 'x$comboValue BONUS';
                         if (comboValue == 1) {
                           comboText = hint;
                         }
@@ -324,7 +324,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     // The lower the time to beat the level, the higher the score.
     gameScore *= 10000 ~/ (duration.inSeconds.abs() + 1);
 
-    if(_boardState.player.combo>1){
+    if (_boardState.player.combo > 1) {
       gameScore *= _boardState.player.combo;
     }
 

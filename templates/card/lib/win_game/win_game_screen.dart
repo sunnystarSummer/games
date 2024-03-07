@@ -14,6 +14,8 @@ import '../style/palette.dart';
 import '../style/responsive_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../widgets/symbolic_flag.dart';
+
 class WinGameScreen extends StatelessWidget {
   final Score score;
   final int highestLevelReached;
@@ -38,33 +40,21 @@ class WinGameScreen extends StatelessWidget {
     final db = FirebaseFirestore.instance;
     final collection = db.collection("score_board");
 
-    Widget flag = Flag.fromString(
-      countryCode,
-      borderRadius: 8,
-    );
-
-    if (countryCode.isEmpty) {
-      flag = Flag.fromString(
-        deviceLanguageCode,
-        borderRadius: 8,
-      );
-    }
-
-    if (countryCode == 'TW') {
-      flag = Image.asset('assets/images/background/Meihua_ROC.png');
-    }
+    Widget flag = SymbolicFlag(countryCode, deviceLanguageCode);
 
     return Scaffold(
       backgroundColor: palette.backgroundPlaySession,
       body: ResponsiveScreen(
         squarishMainArea: Stack(
           children: [
-            Center(
+            Visibility(
+              visible: true,
+              child: Center(
               child: FutureBuilder(
                 future: collection.get(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                        snapshot) {
+                    snapshot) {
                   Map<String, dynamic> heightData = {
                     'languageCode': '',
                     'countryCode': '',
@@ -106,9 +96,9 @@ class WinGameScreen extends StatelessWidget {
 
                     if (languageCode.isNotEmpty || countryCode.isNotEmpty) {
                       textColor =
-                          heightData['languageCode'] == deviceLanguageCode
-                              ? Colors.amber
-                              : Colors.black;
+                      heightData['languageCode'] == deviceLanguageCode
+                          ? Colors.amber
+                          : Colors.black;
 
                       if (deviceLanguageCode != languageCode) {
                         heightScoreFlag = Flag.fromString(
@@ -125,7 +115,7 @@ class WinGameScreen extends StatelessWidget {
 
                     int value = happinessScale * 100 ~/ 1;
                     happinessPercentage =
-                        '${(happinessScale * 100).toStringAsFixed(2)}%';
+                    '${(happinessScale * 100).toStringAsFixed(2)}%';
                   }
 
                   return Column(
@@ -174,14 +164,8 @@ class WinGameScreen extends StatelessWidget {
                   );
                 },
               ),
-            ),
-            // Center(
-            //   child: Opacity(
-            //     opacity: 0.2,
-            //     child: flag,
-            //   ),
-            // ),
-
+            ),)
+            ,
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
