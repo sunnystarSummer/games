@@ -11,12 +11,12 @@ import '../style/palette.dart';
 import 'board_widget.dart';
 import 'playing_card_widget.dart';
 
-typedef ChangeCallback<T> = void Function(T value);
+// typedef ChangeCallback<T> = void Function(T value);
 
 class PlayingAreaWidget extends StatefulWidget {
   final PlayingArea area;
   final GameLevel level;
-  final ChangeCallback<PlayingArea> onHighlight;
+  final ValueChanged<PlayingArea> onHighlight;
 
   const PlayingAreaWidget(this.area, this.level, this.onHighlight, {super.key});
 

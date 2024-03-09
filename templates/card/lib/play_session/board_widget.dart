@@ -19,7 +19,7 @@ class BoardWidget extends StatefulWidget {
   static double cardWidth = 0.095.sw;
   static double cardHeight = cardWidth * (88.9 / 57.1);
 
-  final ChangeCallback<PlayingArea> onHighlight;
+  final ValueChanged<PlayingArea> onHighlight;
 
   const BoardWidget(this.onHighlight, {super.key});
 
@@ -73,17 +73,22 @@ class _BoardWidgetState extends State<BoardWidget> {
     GameLevel level = boardState.level;
 
     List<Widget> list = [];
-    for (final cardSuit in level.cardSuits) {
-      final playingArea = PlayingArea(
-        trashType: cardSuit.trashType,
-      );
+    if(_playingAreaList.isEmpty){
+      for (final cardSuit in level.cardSuits) {
+        final playingArea = PlayingArea(
+          trashType: cardSuit.trashType,
+        );
+        _playingAreaList.add(playingArea);
+      }
+    }
+
+    for (final playingArea in _playingAreaList) {
       final playingAreaWidget = PlayingAreaWidget(
         playingArea,
         level,
         widget.onHighlight,
       );
       list.add(playingAreaWidget);
-      _playingAreaList.add(playingArea);
       list.add(SizedBox(width: 10));
     }
 
