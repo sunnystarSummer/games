@@ -30,6 +30,7 @@ dependencies:
   firebase_core: ^2.25.4
   country_flags: ^2.2.0
   flag: ^7.0.0
+  country_picker: ^2.0.25
 
 dev_dependencies:
   flutter_lints: ^3.0.0

@@ -3,9 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flag/flag_widget.dart';
+import 'package:country_picker/country_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../audio/audio_controller.dart';
@@ -78,7 +80,7 @@ class _MainBackground extends StatelessWidget {
     final countryCode = deviceLocale.countryCode ?? '';
     final languageCode = deviceLocale.languageCode;
 
-    Widget flag = SymbolicFlag(countryCode, languageCode);
+    Widget playerFlag = SymbolicFlag(countryCode, languageCode);
 
     final db = FirebaseFirestore.instance;
     final collection = db.collection("score_board");
@@ -97,6 +99,7 @@ class _MainBackground extends StatelessWidget {
         double happinessScale = 0.0;
         var textColor = Colors.black;
         Widget heightScoreFlag = SizedBox.shrink();
+        List<TableRow> tableRows = [];
 
         if (snapshot.hasData) {
           final event = snapshot.requireData;
@@ -105,11 +108,16 @@ class _MainBackground extends StatelessWidget {
 
           var totalNumber = BigInt.parse('0');
           var deviceScore = BigInt.parse('0');
+
+          List countries = [];
+
           for (final doc in event.docs) {
             Map<String, dynamic> docData = doc.data();
             final scoreText = docData['score'] as String;
             final scoreNumber = BigInt.parse(scoreText);
             final languageCode = (docData['languageCode'] as String);
+
+            countries.add(docData);
 
             if (deviceLocale.languageCode == languageCode) {
               deviceScore = scoreNumber;
@@ -121,6 +129,53 @@ class _MainBackground extends StatelessWidget {
             }
 
             totalNumber += scoreNumber;
+          }
+
+          // Sort from big to small.
+          countries.sort((a, b) {
+            final scoreTextA = a['score'] as String;
+            final scoreTextB = b['score'] as String;
+            return BigInt.parse(scoreTextB).compareTo(BigInt.parse(scoreTextA));
+          });
+
+          for (final country in countries) {
+            final countryCode = (country['countryCode'] as String);
+            final languageCode = (country['languageCode'] as String);
+            final scoreText = country['score'] as String;
+            final scoreNumber = BigInt.parse(scoreText);
+            final happinessScale = scoreNumber / totalNumber;
+            final happinessPercentage =
+                '${(happinessScale * 100).toStringAsFixed(2)}%';
+
+            final flag = SymbolicFlag(
+              countryCode,
+              languageCode,
+              height: 20,
+            );
+
+            tableRows.add(TableRow(
+              children: [
+                //Text('Name'),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: flag,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Center(
+                    child: Text(flag.countryName),
+                    //Text((country['languageCode'] as String)),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Center(
+                    child: Text(
+                        happinessPercentage), //Text((country['score'] as String)),
+                  ),
+                ),
+              ],
+            ));
           }
 
           final languageCode = (heightData['languageCode'] as String);
@@ -153,55 +208,70 @@ class _MainBackground extends StatelessWidget {
           ),
           Center(
             child: Opacity(
-              opacity: 0.2,
+              opacity: 0.4,
               child: Transform.scale(
                 scale: 1.0,
                 child: heightScoreFlag,
               ),
             ),
           ),
-          Center(
-            child: Opacity(
-              opacity: 0.4,
-              child: Transform.scale(
-                scale: happinessScale,
-                child: flag,
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Transform.rotate(
-              angle: -0.1,
-              child: Column(
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.gameName,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: textColor,
-                      fontFamily: 'Permanent Marker',
-                      fontSize: 55,
-                      height: 1,
-                    ),
+          // Center(
+          //   child: Opacity(
+          //     opacity: 0.4,
+          //     child: Transform.scale(
+          //       scale: happinessScale,
+          //       child: playerFlag,
+          //     ),
+          //   ),
+          // ),
+          Column(
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: Transform.rotate(
+                  angle: -0.1,
+                  child: Column(
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.gameName,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: textColor,
+                          fontFamily: 'Permanent Marker',
+                          fontSize: 55,
+                          height: 1,
+                        ),
+                      ),
+                      Text(
+                        happinessPercentage,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Permanent Marker',
+                          fontSize: 55,
+                          height: 1,
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    happinessPercentage,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Permanent Marker',
-                      fontSize: 55,
-                      height: 1,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+              SizedBox(height: 30),
+              Flexible(
+                child: Table(
+                  // defaultColumnWidth: IntrinsicColumnWidth(),
+                  defaultColumnWidth: FixedColumnWidth(100.0),
+                  // columnWidths: const {
+                  //   0: FlexColumnWidth(),
+                  //   1: FlexColumnWidth(),
+                  //   2: FlexColumnWidth(),
+                  // },
+                  children: tableRows,
+                ),
+              ),
+            ],
           ),
         ]);
       },
     );
   }
 }
-
-
