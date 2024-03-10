@@ -131,6 +131,10 @@ class _MainBackground extends StatelessWidget {
             totalNumber += scoreNumber;
           }
 
+          if (countries.length >= 6) {
+            countries.removeRange(6, countries.length);
+          }
+
           // Sort from big to small.
           countries.sort((a, b) {
             final scoreTextA = a['score'] as String;
