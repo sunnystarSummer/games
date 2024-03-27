@@ -438,15 +438,17 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
       level.number,
     );
 
-    GoRouter.of(context).go(
-      '/play/won',
-      extra: {
-        'score': score,
-        'highestLevelReached': playerProgress.highestLevelReached,
-        'happinessPercentage': happinessPercentage.toStringAsFixed(0),
-        'heightDocData': localCountryData,
-      },
-    );
+    Future.sync((){
+      GoRouter.of(context).go(
+        '/play/won',
+        extra: {
+          'score': score,
+          'highestLevelReached': playerProgress.highestLevelReached,
+          'happinessPercentage': happinessPercentage.toStringAsFixed(0),
+          'heightDocData': localCountryData,
+        },
+      );
+    });
   }
 
   void startCountdown(void Function()? finish) {
