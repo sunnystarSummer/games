@@ -432,13 +432,13 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
       }
     });
 
-    final score = Score(
-      result,
-      DateTime.now().difference(_startOfPlay),
-      level.number,
-    );
+    await Future.sync((){
+      final score = Score(
+        result,
+        DateTime.now().difference(_startOfPlay),
+        level.number,
+      );
 
-    Future.sync((){
       GoRouter.of(context).go(
         '/play/won',
         extra: {
