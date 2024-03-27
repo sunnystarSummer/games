@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: ^0.19.0
+  intl: ^0.18.0
 
   async: ^2.11.0
   audioplayers: ^5.2.0
@@ -38,7 +38,7 @@ dev_dependencies:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
   test: ^1.24.3
-  intl_translation: ^0.19.0
+  intl_translation: ^0.18.0
 
 flutter:
   uses-material-design: true
@@ -60,16 +60,16 @@ flutter:
     - assets/images/items/trashClassification_0041/
     - assets/images/items/trashClassification_0042/
     - assets/images/items/trashClassification_0043/
-#    - assets/images/items/trashClassification_0044/
+    #    - assets/images/items/trashClassification_0044/
     - assets/images/items/trashClassification_0050/
     - assets/images/items/trashClassification_0061/
     - assets/images/items/trashClassification_0062/
     - assets/images/items/trashClassification_0063/
     - assets/images/items/trashClassification_0064/
     - assets/images/items/trashClassification_0070/
-#    - assets/images/items/trashClassification_0080/
-#    - assets/images/items/trashClassification_0090/
-#    - assets/images/items/trashClassification_0100/
+    #    - assets/images/items/trashClassification_0080/
+    #    - assets/images/items/trashClassification_0090/
+    #    - assets/images/items/trashClassification_0100/
     - assets/music/
     - assets/sfx/
 
