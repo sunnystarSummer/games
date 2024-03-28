@@ -30,7 +30,7 @@ dependencies:
   country_flags: ^2.2.0
   flag: ^7.0.0
   country_picker: ^2.0.25
-  intl: 0.18.0
+  intl: any
   intl_translation: 0.18.1
 
 dev_dependencies:
